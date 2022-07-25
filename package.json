@@ -1,5 +1,5 @@
 {
-  "name": "get-pwbrowser",
+  "name": "get-pwbrowser-sync",
   "version": "0.1.0",
   "description": "intantiate a playwright chromium browser",
   "main": "index.js",
