@@ -36,4 +36,4 @@ jobs:
           # Windows unable to pass test_normalway
           poetry run pytest -k "test_version or hardway or sync_browser"
           # poetry run pytest
-          sh run-pytest.sh
+          poetry run sh run-pytest.sh
