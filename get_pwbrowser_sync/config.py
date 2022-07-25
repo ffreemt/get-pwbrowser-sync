@@ -1,12 +1,11 @@
 """Configure params DEBUG HEADFUL PROXY."""
+from pathlib import Path
 from typing import Optional
 
-from pathlib import Path
+from logzero import logger
 
 # import dotenv
-from pydantic import BaseSettings, AnyUrl  # pylint: disable=no-name-in-module
-
-from logzero import logger
+from pydantic import AnyUrl, BaseSettings  # pylint: disable=no-name-in-module
 
 
 class Settings(BaseSettings):  # pylint: disable=too-few-public-methods
@@ -25,5 +24,5 @@ class Settings(BaseSettings):  # pylint: disable=too-few-public-methods
         env_file_encoding = "utf-8"  # pydantic doc
 
         logger.info(
-            "env_prefix: %s, env_file: %s", env_prefix, Path(env_file).resolve()
+            "env_prefix: %s, env_file: %s", env_prefix, Path(env_file).absolute()
         )

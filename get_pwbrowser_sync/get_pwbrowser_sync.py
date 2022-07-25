@@ -4,14 +4,15 @@ Respect PWBROWSER_ environ variables in .env
 """
 #
 
-from typing import Union, Optional
-
-# from playwright.async_api import async_playwright, Browser
-from playwright.sync_api import sync_playwright, Browser
-from get_pwbrowser_sync.config import Settings
+from typing import Optional, Union
 
 import logzero
 from logzero import logger
+
+# from playwright.async_api import async_playwright, Browser
+from playwright.sync_api import Browser, sync_playwright
+
+from get_pwbrowser_sync.config import Settings
 
 config = Settings()
 HEADLESS = not config.headful

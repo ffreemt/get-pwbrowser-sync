@@ -1,5 +1,7 @@
-__version__ = "0.1.1"
+"""Init."""
+__version__ = "0.1.0a0"
 from .get_pwbrowser_sync import get_pwbrowser_sync
+
 # from .get_pwbrowser_async import get_pwbrowser as get_pwbrowser_async
 
 # import nest_asyncio
