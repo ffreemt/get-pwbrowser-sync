@@ -1,0 +1,17 @@
+{
+  "name": "get-pwbrowser",
+  "version": "0.1.0",
+  "description": "intantiate a playwright chromium browser",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "pyright": "nodemon -w get_pwbrowser/ -e py -x pyright",
+    "pytest": "nodemon -w tests -w get_pwbrowser -e .py -x pytest tests",
+    "black": "nodemon -w get_pwbrowser -w tests -x black tests get_pwbrowser",
+    "flake8": "nodemon -w get_pwbrowser -w tests -x python -m flake8",
+    "pylint": "nodemon -w get_pwbrowser -e .py -x pylint get_pwbrowser",
+    "test:version": "nodemon -w tests -e .py -x pytest -k get_pwbrowser tests",
+    "test:httpbin": "nodemon -w tests -e .py -x \"pytest -k httpbin\"",
+    "test:sync_b": "nodemon -w tests -e .py -x \"pytest -k sync_browser\""
+  }
+}
