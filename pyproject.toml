@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "get-pwbrowser-sync"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 description = "Instantiate a playwright chromium (sync as opposed to async) browser"
 authors = ["ffreemt"]
 readme = "README.md"

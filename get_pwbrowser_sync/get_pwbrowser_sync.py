@@ -4,15 +4,27 @@ Respect PWBROWSER_ environ variables in .env
 """
 #
 
+import sys
 from typing import Optional, Union
 
 import logzero
 from logzero import logger
+from playwright.__main__ import main
 
 # from playwright.async_api import async_playwright, Browser
 from playwright.sync_api import Browser, sync_playwright
 
 from get_pwbrowser_sync.config import Settings
+
+# install firefox
+sys.argv = ["", "install", "firefox"]
+try:
+    main()
+except SystemExit:
+    ...
+except Exception as exc:
+    logger.error(exc)
+    raise
 
 # Try to stop it first: anticipate reloading
 try:
@@ -110,8 +122,9 @@ def get_pwbrowser_sync(
 
     try:
         # browser = playwright.chromium.launch(**kwargs)
-        # browser = playwright.chromium.launch(headless=False)
-        browser = loop.chromium.launch(**kwargs)
+        # browser = loop.chromium.launch(headless=False)
+        # browser = loop.chromium.launch(**kwargs)
+        browser = loop.firefox.launch(**kwargs)
     except Exception as exc:
         logger.error(exc)
         raise

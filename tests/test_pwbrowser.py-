@@ -7,7 +7,7 @@ def test_pwbrowser():
     """Test sync pwbrowser."""
     pwbrowser = get_pwbrowser_sync()
     page = pwbrowser.new_page()
-    page.goto("http://www.baidu.com")
+    page.goto("http://www.baidu.com", timeout=60 * 1000)
     assert "百度" in page.title()
     # print(page.title())
     # '百度一下，你就知道'
