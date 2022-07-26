@@ -13,7 +13,6 @@ https://playwright.dev/python/docs/test-runners#usage
 from get_pwbrowser_sync import get_pwbrowser_sync
 
 
-
 # def test_hardway(m_browser):
 def test_hardway():
     """Test https://httpbin.org."""

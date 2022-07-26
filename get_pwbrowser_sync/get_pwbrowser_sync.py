@@ -14,6 +14,18 @@ from playwright.sync_api import Browser, sync_playwright
 
 from get_pwbrowser_sync.config import Settings
 
+# Try to stop it first: anticipate reloading
+try:
+    loop.stop()
+except Exception:
+    ...
+try:
+    loop = sync_playwright().start()
+except Exception as exc:
+    logger.error(exc)
+    raise
+
+
 config = Settings()
 HEADLESS = not config.headful
 DEBUG = config.debug
@@ -80,15 +92,26 @@ def get_pwbrowser_sync(
             "proxy": proxy,
         })
 
+    _ = """
+    # close the loop before start one (for subsequent calls)
+    try:
+        get_pwbrowser_sync.loop.stop()
+    except Exception:
+        ...
     try:
         playwright = sync_playwright().start()
     except Exception as exc:
         logger.error(exc)
         raise
 
+    # attache the loop as an attr
+    get_pwbrowser_sync.loop = playwright
+    """
+
     try:
-        browser = playwright.chromium.launch(**kwargs)
+        # browser = playwright.chromium.launch(**kwargs)
         # browser = playwright.chromium.launch(headless=False)
+        browser = loop.chromium.launch(**kwargs)
     except Exception as exc:
         logger.error(exc)
         raise
