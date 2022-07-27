@@ -1,6 +1,7 @@
 """Init."""
-__version__ = "0.1.0a4"
+__version__ = "0.1.0"
 from .get_pwbrowser_sync import get_pwbrowser_sync
+from .get_pwbrowser_sync import loop
 
 # from .get_pwbrowser_async import get_pwbrowser as get_pwbrowser_async
 
@@ -9,5 +10,5 @@ from .get_pwbrowser_sync import get_pwbrowser_sync
 
 __all__ = [
     "get_pwbrowser_sync",
-    # "get_pwbrowser_async",
+    "loop",
 ]
