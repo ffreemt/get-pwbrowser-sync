@@ -16,7 +16,8 @@ from playwright.sync_api import Browser, sync_playwright
 
 from get_pwbrowser_sync.config import Settings
 
-# install firefox
+# check and install firefox if necessary, 5.79s
+_ = sys.argv[:]  # save
 sys.argv = ["", "install", "firefox"]
 try:
     main()
@@ -25,6 +26,8 @@ except SystemExit:
 except Exception as exc:
     logger.error(exc)
     raise
+finally:  # restore
+    sys.argv = _[:]
 
 # Try to stop it first: anticipate reloading
 try:
