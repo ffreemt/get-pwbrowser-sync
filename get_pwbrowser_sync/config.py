@@ -24,5 +24,5 @@ class Settings(BaseSettings):  # pylint: disable=too-few-public-methods
         env_file_encoding = "utf-8"  # pydantic doc
 
         logger.info(
-            "env_prefix: %s, env_file: %s", env_prefix, Path(env_file).resolve()
+            "env_prefix: %s, env_file: %s", env_prefix, Path(env_file).absolute()  # .resolve()
         )

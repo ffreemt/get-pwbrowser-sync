@@ -9,6 +9,7 @@ from typing import Optional, Union
 
 import logzero
 from logzero import logger
+import playwright
 from playwright.__main__ import main
 
 # from playwright.async_api import async_playwright, Browser
@@ -30,16 +31,22 @@ finally:  # restore
     sys.argv = _[:]
 
 # Try to stop it first: anticipate reloading
+_ = """
 try:
-    loop.stop()
+    loop.stop()  # pylint: disable=
 except Exception:
     ...
+# """
+
 try:
     loop = sync_playwright().start()
+except playwright._impl._api_types.Error as exc:
+    logger.warning(exc)
+    if "asyncio loop" in str(exc).lower():
+        logger.info("Likely  already run sync_playwright().start()")
 except Exception as exc:
     logger.error(exc)
     raise
-
 
 config = Settings()
 HEADLESS = not config.headful
@@ -93,6 +100,7 @@ def get_pwbrowser_sync(
     proxy: Optional[Union[str, dict]] = PROXY
     kwargs = {}
     """
+    global loop
     if isinstance(verbose, bool):
         verbose = 10 if verbose else 20
     logzero.loglevel(verbose)
@@ -128,8 +136,23 @@ def get_pwbrowser_sync(
         # browser = loop.chromium.launch(headless=False)
         # browser = loop.chromium.launch(**kwargs)
         browser = loop.firefox.launch(**kwargs)
+    except RuntimeError as exc:  # loop.stop() or otherwise
+        logger.error("RuntimeError: %s", exc)
+        # try to intantiate another one
+        try:
+            loop = sync_playwright().start()
+        except playwright._impl._api_types.Error as exc:
+            logger.warning(exc)
+            if "asyncio loop" in str(exc).lower():
+                logger.info("Likely  already run sync_playwright().start()")
+        except Exception as exc:
+            logger.error(exc)
+            raise
+        browser = loop.firefox.launch(**kwargs)
     except Exception as exc:
         logger.error(exc)
         raise
+
+    get_pwbrowser_sync.loop = loop
 
     return browser
