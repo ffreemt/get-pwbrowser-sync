@@ -1,5 +1,5 @@
 """Init."""
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 from .get_pwbrowser_sync import get_pwbrowser_sync
 from .get_pwbrowser_sync import loop
 
